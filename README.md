@@ -21,13 +21,13 @@ to ssh to the machine:
 vagrant ssh
 ```
 
-Need to complete start fresh? 
+Need to complete start fresh?
 ```
 vagrant destroy
 ```
 
 
-## Docker ## 
+## Docker ##
 
 Based on the template [here](https://github.com/wdekkers/docker-php7-httpd-apache2-mysql)
 
@@ -47,7 +47,7 @@ docker exec -it 7faf3ec980be /bin/bash
 
 `7faf3ec980be` is the ID of the machine retrieved from `docker ps`. Replace it with your own Container ID.
 
-Start Fresh? 
+Start Fresh?
 ```
 docker-compose down
 ```
