@@ -28,3 +28,23 @@ Traceback (most recent call last):
   File "site-packages\docker\transport\npipesocket.py", line 50, in connect
 pywintypes.error: (2, 'WaitNamedPipe', 'The system cannot find the file specified.')
 Failed to execute script docker-compose
+
+
+
+======================
+
+
+
+PS C:\Users\smfatemi\Desktop\cewp\CEWP-559-fall-2017> docker-compose up
+Creating MySQL ...
+Creating MySQL ... error
+
+ERROR: for MySQL  Cannot start service mysql: driver failed programming external connectivity on endpoint MySQL (8247ac4
+0254aab6dea3c20bf6bf89610da73886d205199170ef7f9b1ff756391): Error starting userland proxy: Bind for 0.0.0.0:3306: unexpe
+cted error Permission denied
+
+ERROR: for mysql  Cannot start service mysql: driver failed programming external connectivity on endpoint MySQL (8247ac4
+0254aab6dea3c20bf6bf89610da73886d205199170ef7f9b1ff756391): Error starting userland proxy: Bind for 0.0.0.0:3306: unexpe
+cted error Permission denied
+ERROR: Encountered errors while bringing up the project.
+PS C:\Users\smfatemi\Desktop\cewp\CEWP-559-fall-2017>
