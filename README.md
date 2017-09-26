@@ -43,3 +43,13 @@ docker-compose down
 ```
 
 and start from the beginning.
+
+
+## Vagrant ##
+
+If fo any reason, you have difficulties installing Docker on your machine and get yourself setup, you can fall back to Vagrant. 
+You need to install [VirtualBox](https://www.virtualbox.org/wiki/Downloads) and [Vagrant](https://www.vagrantup.com/) then all you need to run:
+
+```
+vagrant up
+```
