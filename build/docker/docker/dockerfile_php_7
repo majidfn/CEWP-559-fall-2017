@@ -1,3 +1,25 @@
 FROM php:7-apache
 
+# Installing Utilities
+RUN apt-get update
+RUN apt-get install -y --force-yes git zip unzip
+
+
+# Installing composer
+RUN curl -s https://getcomposer.org/installer | php
+RUN mv composer.phar /usr/local/bin/composer
+RUN chmod +x /usr/local/bin/composer
+
+
+# Installing PHP Extensions
+
+# Mysqli
 RUN /usr/local/bin/docker-php-ext-install mysqli
+
+# PDO:
+# RUN /usr/local/bin/docker-php-ext-install pdo_mysql
+
+# XDEBUG
+# RUN pecl install xdebug
+
+
