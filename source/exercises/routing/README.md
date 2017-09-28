@@ -20,9 +20,8 @@ We would like to have out URLs instead of `index.php?page=about` to be like `/ab
 
 Setup the `.htaccess` file according to the README (below)
 
-Parse the Path using `explode($_SERVER['REQUEST_URI'])` and react to the following paths:
+Parse the Path using `explode('/', $_SERVER['REQUEST_URI'])` and react to the following paths. Use `array_filter` to get rid of empty elements.
 
-- /
 - /about
 - /contact
 
