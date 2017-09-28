@@ -11,7 +11,7 @@ RUN mv composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
 
 
-RUN composer global require friendsofphp/php-cs-fixer
+# RUN composer global require friendsofphp/php-cs-fixer
 
 
 # Installing PHP Extensions
@@ -23,10 +23,10 @@ RUN /usr/local/bin/docker-php-ext-install mysqli
 # RUN /usr/local/bin/docker-php-ext-install pdo_mysql
 
 # XDEBUG
-# RUN pecl install xdebug
+RUN pecl install xdebug
 
 
 # Apache configuration
-# RUN a2enmod rewrite
+RUN a2enmod rewrite
 
 
