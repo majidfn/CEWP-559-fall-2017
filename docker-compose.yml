@@ -17,7 +17,7 @@ php7:
 mysql:
   image: mysql
   ports:
-    - "3306:3306"
+    - "4406:3306"
   environment:
     - MYSQL_ROOT_PASSWORD=root
     - MYSQL_DATABASE=CCE_PHPMySQL2
