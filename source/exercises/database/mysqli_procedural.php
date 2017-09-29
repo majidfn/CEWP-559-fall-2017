@@ -12,8 +12,9 @@ if (!$conn) {
 $result = mysqli_query($conn, 'SELECT ID, Name, Price FROM items');
 
 if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    echo $row['ID']. ' - ' . $row['Name'];
+    while($row = mysqli_fetch_assoc($result)) {
+    	echo $row['ID']. ' - ' . $row['Name'] . '<br/>';	
+    }
 }
 
 mysqli_close($conn);
