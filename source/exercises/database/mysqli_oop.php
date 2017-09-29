@@ -1,16 +1,5 @@
 <?php
 
-//
-// Exercise - 1:
-// Define an Item class with the attributes of: ID, Name and Price
-//
-// Exercise - 2:
-// Use mysqli_result::fetch_object to fetch the result set in to an instance of that class
-// http://php.net/manual/en/mysqli-result.fetch-object.php
-// 
-// Exercise - 3:
-// Use xdebug for better debugging capabilities
-
 class Item {
     public $ID;
     public $Name;
