@@ -8,4 +8,12 @@ $model = new Model();
 $controller = new Controller($model);
 $view = new View($model);
 
+switch ($_GET['action']) {
+    case 'clicked':
+        $controller->click();
+        break;
+    default:
+        break;
+}
+
 echo $view->output();
