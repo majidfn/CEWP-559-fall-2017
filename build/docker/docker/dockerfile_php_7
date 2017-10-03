@@ -2,7 +2,7 @@ FROM php:7-apache
 
 # Installing Utilities
 RUN apt-get update
-RUN apt-get install -y --force-yes git zip unzip
+RUN apt-get install -y --force-yes git zip unzip zlib1g-dev
 
 
 # Installing composer
@@ -28,5 +28,8 @@ RUN pecl install xdebug
 
 # Apache configuration
 RUN a2enmod rewrite
+
+# PATH Configuration
+RUN export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 
