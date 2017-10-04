@@ -20,7 +20,7 @@ RUN chmod +x /usr/local/bin/composer
 RUN /usr/local/bin/docker-php-ext-install mysqli
 
 # PDO:
-# RUN /usr/local/bin/docker-php-ext-install pdo_mysql
+RUN /usr/local/bin/docker-php-ext-install pdo_mysql
 
 # XDEBUG
 RUN pecl install xdebug
