@@ -7,7 +7,7 @@ class ItemModel
     public $Description;
     public $Price;
 
-    public $data;
+    public $_data;
     
     private $db_connection;
     
@@ -31,6 +31,6 @@ class ItemModel
             $items[] = $item;
         }
 
-        $this->data = $items;
+        $this->_data = $items;
     }    
 }
