@@ -2,10 +2,18 @@
 
 require_once __DIR__.'/loader.php';
 
-$page = $_GET['page'];
+
+$paths = explode('/', $_SERVER['REQUEST_URI']);
+// var_dump($paths);
+$page = $paths[3];
+
+if(empty($page)){
+    $page = 'index';
+}
 
 $routes = array(
     'about' => array('model' => 'AboutModel', 'view' => 'AboutView', 'controller' => 'AboutController'),
+    'index' => array('model' => 'IndexModel', 'view' => 'IndexView', 'controller' => 'IndexController')
 );
 
 foreach($routes as $key => $components){
