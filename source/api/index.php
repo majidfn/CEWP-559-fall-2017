@@ -19,8 +19,7 @@ if ($mysqli->connect_errno) {
 
 switch ($path) {
     case 'items':
-        $dao = new ItemDAO($mysqli);
-        $model = new ItemModel($dao);
+        $model = new ItemModel($mysqli);
         $view = new ItemView($model);
         $controller = new ItemController($model);
 
