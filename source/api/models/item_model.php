@@ -17,13 +17,13 @@ class ItemModel
         }
     }
 
-    public function getItems(){
+    public function getAll(){
         $items = array();
         $query = 'SELECT ID, Name, Price, Description FROM items';
         $result = $this->db_connection->query($query);
         
         if (!$result) {
-            printf("Error: %s\n", $mysqli->error);
+            printf("Error: %s\n", $this->db_connection->error);
             return;
         }
         
@@ -32,5 +32,42 @@ class ItemModel
         }
 
         $this->_data = $items;
-    }    
+    }
+
+    public function getOne($id){
+        $query = 'SELECT ID, Name, Price, Description FROM items WHERE ID = ' . $id;
+        $result = $this->db_connection->query($query);
+        
+        if (!$result) {
+            printf("Error: %s\n", $this->db_connection->error);
+            return;
+        }
+        
+        $item = $result->fetch_object('ItemModel');
+
+        $this->_data = $item;
+    }
+
+    //
+    // Save the payload as a new Item in to the Database
+    // 
+    public function create($payload){
+        // Using sprintf to format the query in a nicer way
+        $query = sprintf("INSERT INTO items (Name, Description, Price) VALUES ('%s', '%s', '%s')", 
+            $payload->name, 
+            $payload->description, 
+            $payload->price);
+
+        $result = $this->db_connection->query($query);
+        
+        if (!$result) {
+            printf("Error: %s\n", $this->db_connection->error);
+            return;
+        }
+
+        $insertedId = $this->db_connection->insert_id;
+        return $this->getOne($insertedId);
+    }
+
+
 }

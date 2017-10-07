@@ -2,8 +2,12 @@
 
 require_once __DIR__.'/loader.php';
 
-$routes = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
-$path =  $routes[1]; 
+$pathParts = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
+$resource =  $pathParts[1]; 
+$id = $pathParts[2];
+
+$method = $_SERVER['REQUEST_METHOD'];
+$requestBody = file_get_contents('php://input');
 
 
 // 
@@ -17,13 +21,21 @@ if ($mysqli->connect_errno) {
     exit;
 }
 
-switch ($path) {
+
+switch ($resource) {
     case 'items':
         $model = new ItemModel($mysqli);
         $view = new ItemView($model);
         $controller = new ItemController($model);
 
-        $controller->getAll();
+        if($method == 'POST'){
+            $controller->create($requestBody);
+        }elseif($method == 'GET' && !empty($id)){
+            $controller->getOne($id);
+        }elseif($method == 'GET'){
+            $controller->getAll();
+        }
+
         echo $view->output();
         break;
     

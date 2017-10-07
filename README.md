@@ -1,5 +1,7 @@
 # PHP / MySQL II #
 
+⚠️ You can read more about the Project [here](PROJECT.md).
+
 Here is the repository for the course `PHP PROGRAMMING WITH MYSQL II (CEWP 559)`. 
 
 ## Installation ##
