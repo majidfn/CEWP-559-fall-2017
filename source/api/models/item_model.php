@@ -2,10 +2,10 @@
 
 class ItemModel
 {
-    public $ID;
-    public $Name;
-    public $Description;
-    public $Price;
+    public $id;
+    public $name;
+    public $description;
+    public $price;
 
     public $_data;
     
@@ -19,7 +19,7 @@ class ItemModel
 
     public function getAll(){
         $items = array();
-        $query = 'SELECT ID, Name, Price, Description FROM items';
+        $query = 'SELECT id, name, price, description FROM items';
         $result = $this->db_connection->query($query);
         
         if (!$result) {
@@ -35,7 +35,7 @@ class ItemModel
     }
 
     public function getOne($id){
-        $query = 'SELECT ID, Name, Price, Description FROM items WHERE ID = ' . $id;
+        $query = 'SELECT id, name, price, description FROM items WHERE ID = ' . $id;
         $result = $this->db_connection->query($query);
         
         if (!$result) {
@@ -44,7 +44,6 @@ class ItemModel
         }
         
         $item = $result->fetch_object('ItemModel');
-
         $this->_data = $item;
     }
 
@@ -53,7 +52,7 @@ class ItemModel
     // 
     public function create($payload){
         // Using sprintf to format the query in a nicer way
-        $query = sprintf("INSERT INTO items (Name, Description, Price) VALUES ('%s', '%s', '%s')", 
+        $query = sprintf("INSERT INTO items (name, price, description) VALUES ('%s', '%s', '%s')", 
             $payload->name, 
             $payload->description, 
             $payload->price);
@@ -68,6 +67,24 @@ class ItemModel
         $insertedId = $this->db_connection->insert_id;
         return $this->getOne($insertedId);
     }
+
+    public function update($id, $payload){
+        // Using sprintf to format the query in a nicer way
+        $query = sprintf("UPDATE items SET name = '%s' , description = '%s', price = '%s' WHERE id = %d", 
+            $payload->name, 
+            $payload->description, 
+            $payload->price,
+            $id);
+
+        $result = $this->db_connection->query($query);
+        
+        if (!$result) {
+            printf("Error: %s\n", $this->db_connection->error);
+            return;
+        }
+
+        return $this->getOne($id);
+    }    
 
 
 }
