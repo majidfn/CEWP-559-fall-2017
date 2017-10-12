@@ -16,7 +16,7 @@ Create a new page with all the required classes for `Contact` and the menu optio
 
 ### Exercise - 4 ###
 
-We would like to have out URLs instead of `index.php?page=about` to be like `/about`.
+We would like to have our URLs instead of `index.php?page=about` to be like `/about`.
 
 Setup the `.htaccess` file according to the README (below)
 
