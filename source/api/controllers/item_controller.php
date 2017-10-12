@@ -16,16 +16,16 @@ class ItemController
         $this->model->getOne($id);
     }
 
-    public function create($requestBody){
+    public function create($payload){
         // Validating the data inside the JSON
         // We make sure the `title` and `price` are provided
 
-        if(!array_key_exists('name', $jsonPayload)){
+        if(!array_key_exists('name', $payload)){
             throw new Exception('`name` should be provided!');
-        }elseif(!array_key_exists('price', $jsonPayload)){
+        }elseif(!array_key_exists('price', $payload)){
             throw new Exception('`price` should be provided!');
         }
 
-        $this->model->create($jsonPayload);
+        $this->model->create($payload);
     }
 }
