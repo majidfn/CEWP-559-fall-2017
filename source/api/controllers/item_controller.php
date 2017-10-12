@@ -17,8 +17,6 @@ class ItemController
     }
 
     public function create($requestBody){
-        $jsonPayload = json_decode($requestBody);
-
         // Validating the data inside the JSON
         // We make sure the `title` and `price` are provided
 

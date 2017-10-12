@@ -13,4 +13,13 @@ class ItemView
          
         return json_encode($data, JSON_PRETTY_PRINT);
     }
+
+    public function showAll(){
+        $data = $this->model->_data;
+        require_once(__DIR__. '/templates/items_view_all.php');
+    }
+    
+    public function createNew() {
+        require_once(__DIR__. '/templates/items_create_new_form.php');
+    }
 }

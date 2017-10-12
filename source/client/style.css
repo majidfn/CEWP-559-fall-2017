@@ -1,0 +1,175 @@
+/*
+* multi-line comment
+*/
+p{ line-height: 1em; }
+h1, h2, h3, h4{
+    color: orange;
+	font-weight: normal;
+	line-height: 1.1em;
+	margin: 0 0 .5em 0;
+}
+h1{ font-size: 1.7em; }
+h2{ font-size: 1.5em; }
+a{
+	color: black;
+	text-decoration: none;
+}
+	a:hover,
+	a:active{ text-decoration: underline; }
+
+/* you can structure your code's white space so that it is as readable for when you come back in the future or for other people to read and edit quickly */
+
+body{
+    font-family: arial; font-size: 80%; line-height: 1.2em; width: 100%; margin: 0; background: #eee;
+}
+/* you can put your code all in one line like above */
+#page{ margin: 20px; }
+
+/* or on different lines like below */
+#logo{
+	width: 35%;
+	margin-top: 5px;
+	font-family: georgia;
+	display: inline-block;
+	float: left;
+}
+/* but try and be as concise as possible */
+#nav{
+	width: 60%;
+	display: inline-block;
+	text-align: right;
+	float: left;
+}
+	#nav ul{}
+		#nav ul li{
+			display: inline-block;
+			height: 62px;
+		}
+			#nav ul li a{
+				padding: 20px;
+				background: orange;
+				color: white;
+			}
+			#nav ul li a:hover{
+				background-color: #ffb424;
+				box-shadow: 0px 1px 1px #666;
+			}
+			#nav ul li a:active{ background-color: #ff8f00; }
+
+#content{
+	margin: 30px;
+	background: white;
+/*	padding: 20px;*/
+	width:94%;
+	display: inline-block;
+    clear: both;
+    height: 100%;
+    min-height: 20px;
+}
+
+#content a{
+	color: white;
+}
+
+.item_box {
+	margin: 30px 10px;
+	background: grey;
+	color:white;
+	width:250px;
+	padding: 10px;
+	float:left;
+}
+#list_items_container .title{
+	font-weight: bold;
+	margin-bottom: 10px;
+	padding: 10px;
+	border-bottom: black 1px solid;
+	text-align: center;
+}
+
+#list_items_container .description{
+	font-weight: normal;
+	margin-bottom: 10px;
+	padding: 10px;
+	border-bottom: black 1px solid;
+	text-align: center;
+}
+
+#list_items_container .price{
+	font-weight: normal;
+	margin-bottom: 10px;
+	font-size: 23px;
+	padding: 10px;
+	text-align: center;
+}
+
+#single_item_container #single_item_name{
+	font-weight: bold;
+	font-size: 52px;
+	padding: 20px;
+	margin: 20px;
+}
+
+#single_item_container #single_item_desc{
+	font-weight: normal;
+	font-size: 24px;
+	margin: 20px;
+	padding: 20px;
+}
+
+#single_item_container #single_item_price{
+	font-weight: normal;
+	font-size: 34px;
+	margin: 20px;
+	padding: 20px;
+	color: green;
+}
+
+.block{
+	float:left;
+	margin:20px;
+}
+
+.block label{
+	font-weight: bold;
+	font-size: 24px;
+	vertical-align: middle;
+}
+
+.block input, .block textarea{
+	border: 1px solid grey;
+	font-size: 24px;
+	border-radius:5px;
+	padding: 10px;
+	margin: 10px;
+	vertical-align: middle;
+}
+
+.separator{
+	clear: both;
+}
+
+button.create{
+	margin: 20px;
+	padding: 20px;
+	font-size: 24px;
+	font-weight: bold;
+	background: rgb(144, 255, 144);
+	border: 2px solid green;
+	border-radius:15px;
+}
+
+#footer{
+	border-bottom: 1px #ccc solid;
+	margin-bottom: 10px;
+}
+	#footer p{
+		text-align: right;
+		text-transform: uppercase;
+		font-size: 80%;
+		color: grey;
+	}
+
+/* multiple styles seperated by a , */
+#content,
+ul li a{ box-shadow: 0px 1px 1px #999; }
