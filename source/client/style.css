@@ -71,6 +71,11 @@ body{
 	color: white;
 }
 
+.center {
+    margin: auto;
+	width: 50%;
+}
+
 .item_box {
 	margin: 30px 10px;
 	background: grey;
@@ -79,6 +84,12 @@ body{
 	padding: 10px;
 	float:left;
 }
+
+.item_box img { 
+	width:120px;
+	height: 120px;
+}
+
 #list_items_container .title{
 	font-weight: bold;
 	margin-bottom: 10px;
@@ -143,6 +154,10 @@ body{
 	padding: 10px;
 	margin: 10px;
 	vertical-align: middle;
+}
+
+.block input[type="file"]{
+	font-size: 12px;
 }
 
 .separator{

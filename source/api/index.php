@@ -2,15 +2,34 @@
 
 require_once __DIR__.'/loader.php';
 
-$pathParts = array_values(array_filter(explode('/', $_SERVER['REQUEST_URI'])));
-$resource =  $pathParts[1]; 
-$id = $pathParts[2];
+/**
+ * Path Parts:
+ * 
+ * When user specifies the path as something like:
+ *  POST http://localhost/api/items/4/image
+ * the following piece of code work as below:
+ * 
+ * $pathparts will be an arrya of : array('items', '1', 'image')
+ * where:
+ * items: is the `resource`
+ * 1: is the `id`
+ * image: is `subresource`
+ * POST: is the `method`
+ * 
+ */
+
+$baseURL = strtok($_SERVER["REQUEST_URI"],'?');
+
+$api = strtok($baseURL, '/');
+$resource = strtok('/');
+$id = strtok('/');
+$subresource = strtok('/');
 
 $method = $_SERVER['REQUEST_METHOD'];
-$requestBody = json_decode(file_get_contents('php://input'));
+$requestBody = file_get_contents('php://input');
+$requestJSON = json_decode($requestBody);
 
-
-// 
+//
 // Database Connection
 //
 $mysqli = new mysqli('mysql', 'root', 'root', 'CCE_PHPMySQL2', '3306');
@@ -22,30 +41,57 @@ if ($mysqli->connect_errno) {
 }
 
 
-switch ($resource) {
-    case 'items':
-        $model = new ItemModel($mysqli);
-        $view = new ItemView($model);
-        $controller = new ItemController($model);
 
-        if($method == 'POST'){
-            $controller->create($requestBody);
-        }elseif($method == 'GET' && !empty($id)){
-            $controller->getOne($id);
-        }elseif($method == 'GET'){
-            $controller->getAll();
-        }
+// header("Content-Type: application/json");
 
-        echo $view->output();
-        break;
+try {
+    switch ($resource) {
+        case 'items':
+            $model = new ItemModel($mysqli);
+            $view = new ItemView($model);
+            $controller = new ItemController($model);
+            
+            if ($method == 'POST' && !empty($id) && $subresource == 'image') {
+                $controller->upload($id, $_FILES['new_item_image']);
+
+            } elseif ($method == 'POST') {
+                $controller->create($requestJSON);
+
+            } elseif ($method == 'GET' && !empty($id)) {
+                $controller->getOne($id);
+
+            } elseif ($method == 'GET') {
+                $controller->getAll();
+
+            } elseif ($method == 'PUT' && !empty($id)) {
+                $controller->update($id, $requestJSON);
+
+            } elseif ($method == 'DELETE' && !empty($id)) {
+                // $controller->delete($id);
+                // TODO: Remove this after implementing it
+                throw new Exception('Handler for DELETE method has NOT been implemented yet!', 501); // 501: Not Implemented!
+            }
         
-    case 'categories':
-        // $model = new CategoryModel($mysqli);
-        // $view = new CategoryView($model);
-        // $controller = new CategoryController($model);
-
-        break;
+            echo $view->output();
+            break;
     
-    default:
-        break;
+        case 'categories':
+            $model = new CategoryModel($mysqli);
+            $controller = new CategoryController($model);
+        
+            if ($method == 'GET' && empty($id)) {
+                $data = $controller->getAll();
+            }
+    
+            echo json_encode($data, JSON_PRETTY_PRINT);
+            break;
+
+        default:
+            break;
+    }
+
+} catch (Exception $e) {
+
+    http_response_code($e->getCode());
+    echo $e->getMessage();
 }

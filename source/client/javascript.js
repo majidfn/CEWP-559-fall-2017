@@ -1,5 +1,5 @@
 
-
+var baseURL = 'http://localhost/api';
 
 function httpRequest(method, url, payload, callback) {
     var httpRequest = new XMLHttpRequest();
@@ -19,7 +19,7 @@ function httpRequest(method, url, payload, callback) {
         callback(JSON.parse(httpRequest.responseText));
     };
 
-    httpRequest.open(method, url);
+    httpRequest.open(method, baseURL + url);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
 
     if (payload) {
@@ -28,6 +28,23 @@ function httpRequest(method, url, payload, callback) {
 
     httpRequest.send(payload);
 }
+
+function fileUpload(url, file, callback) {
+    var reader = new FileReader();  
+    var httpRequest = new XMLHttpRequest();
+    var formData = new FormData();
+
+    httpRequest.open("POST", baseURL + url);
+
+    httpRequest.onreadystatechange = function(receivedData) {
+        if (httpRequest.readyState == XMLHttpRequest.DONE && httpRequest.status == 200) {
+            callback();
+        }
+    };    
+
+    formData.append('new_item_image',file);
+    httpRequest.send(formData);
+  }
 
 function showItems(event) {
     event.preventDefault();
@@ -40,12 +57,13 @@ function showItems(event) {
 
     
 
-    httpRequest('GET', 'http://localhost/api/items', undefined, function (data) {
+    httpRequest('GET', '/items', undefined, function (data) {
         for (var i = 0; i < data.length; i++) {
             var item = data[i];
             htmlContainer.innerHTML += 
                 `<div class="item_box">
                     
+                    <div class="center"><img src="${baseURL}/../images/${item['image']}" width=150 height=150 /></div>
                     <div class="title"><a href="#" onclick="showItem(event, ${item['id']})">${item["name"]}</a></div>
                     <div class="description">${item["description"]}</div>
                     <div class="price">$${item["price"]}</div>
@@ -66,7 +84,7 @@ function showItem(event, id) {
     
     
     
-    httpRequest('GET', 'http://localhost/api/items/' + id, undefined, function (data) {
+    httpRequest('GET', '/items/' + id, undefined, function (data) {
         document.getElementById('single_item_name').innerHTML = data.name;
         document.getElementById('single_item_desc').innerHTML = data.description;
         document.getElementById('single_item_price').innerHTML = '$' + data.price;
@@ -85,6 +103,7 @@ function showNewItem(event) {
     document.getElementById("new_item_title").value = '';
     document.getElementById("new_item_desc").value = '';
     document.getElementById("new_item_price").value = '';
+    document.getElementById("new_item_image").value = '';
 }
 
 function createItem(event){
@@ -94,15 +113,22 @@ function createItem(event){
     var desc = document.getElementById("new_item_desc").value;
     var price = document.getElementById("new_item_price").value;
 
+    var file = document.getElementById("new_item_image").files[0];
+
     var data = {
         name: title,
         description: desc,
         price: price
     }
 
-    httpRequest('POST', 'http://localhost/api/items/', data, function () {
-        console.log('Successful creation of new item');
-        document.getElementById("items_btn").click();
+    httpRequest('POST', '/items/', data, function (newRecord) {
+        console.log('Successful creation of new item', newRecord);
+
+        fileUpload(`/items/${newRecord.id}/image`, file, function(){
+            console.log('File uploaded successfully!');
+            document.getElementById("items_btn").click();
+        });
+
     });
 }
 
