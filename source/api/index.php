@@ -29,6 +29,9 @@ $method = $_SERVER['REQUEST_METHOD'];
 $requestBody = file_get_contents('php://input');
 $requestJSON = json_decode($requestBody);
 
+$filters = $_GET;
+$hasFilters = !empty($_GET);
+
 //
 // Database Connection
 //
@@ -57,6 +60,9 @@ try {
             } elseif ($method == 'GET' && !empty($id)) {
                 $data = $controller->getOne($id);
 
+            } elseif ($method == 'GET' && $hasFilters) {
+                $data = $controller->getAllWithFilters($filters);
+                
             } elseif ($method == 'GET') {
                 $data = $controller->getAll();
 
@@ -86,10 +92,10 @@ try {
             break;
         }
 
-        echo json_encode($data, JSON_PRETTY_PRINT);
-
-} catch (Exception $e) {
-
-    http_response_code($e->getCode());
-    echo $e->getMessage();
+    } catch (Exception $e) {
+        
+        $data = array('error' => $e->getMessage());
+        http_response_code($e->getCode());
 }
+
+echo json_encode($data, JSON_PRETTY_PRINT);

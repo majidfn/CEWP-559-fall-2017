@@ -68,4 +68,21 @@ class ItemController
 
         return $finalFile;
     }
+
+    /**
+     * getAllWithFilters checks for the valid filters and passes them to the Model to retrieve the records based on the filters
+     * 
+     * categoryid should be an integer value. All the values from $_GET are string we need `intval` function to extract the integer value.
+     */
+    public function getAllWithFilters($filters) {
+
+        $categoryId = $filters['categoryid'];
+        $categoryId = intval($categoryId);
+
+        if ($categoryId == 0) {
+            throw new Exception('Invalid categoryid. ', 400);
+        }
+
+        return $this->model->getFilteredItems($categoryId);
+    }
 }

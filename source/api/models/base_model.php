@@ -25,7 +25,27 @@ class BaseModel
             $this->db_connection = $connection;
         }
     }
+   
     
+    /**
+     * getFiltered will retrieve all the records from the databse from $TableName based on the JOIN clause and WHERE Clause specified
+     */
+    protected function _getFiltered($join_clause = '', $where_clause = '')
+    {
+        $items = array();
+        $query = "SELECT * FROM {$this->TableName} {$join_clause} {$where_clause}";
+        $result = $this->db_connection->query($query);
+
+        if (!$result) {
+            throw new Exception("Database error: {$this->db_connection->error}", 500);
+        }
+        
+        while ($item = $result->fetch_object($this->ModelName)) {
+            $items[] = $item;
+        }
+
+        return $items;
+    }
     
     /**
      * getAll will retrieve all the records from the databse from $TableName
