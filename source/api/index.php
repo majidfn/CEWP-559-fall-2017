@@ -40,9 +40,7 @@ if ($mysqli->connect_errno) {
     exit;
 }
 
-
-
-// header("Content-Type: application/json");
+header("Content-Type: application/json");
 
 try {
     switch ($resource) {
