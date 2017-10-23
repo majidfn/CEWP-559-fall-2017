@@ -30,7 +30,7 @@ class BaseModel
     /**
      * getFiltered will retrieve all the records from the databse from $TableName based on the JOIN clause and WHERE Clause specified
      */
-    protected function _getFiltered($join_clause = '', $where_clause = '')
+    public function getFiltered($join_clause = '', $where_clause = '')
     {
         $items = array();
         $query = "SELECT * FROM {$this->TableName} {$join_clause} {$where_clause}";

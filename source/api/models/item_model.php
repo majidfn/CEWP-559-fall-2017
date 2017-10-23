@@ -69,6 +69,6 @@ class ItemModel extends BaseModel
         $join_clause  = 'JOIN items_categories ON items.id = items_categories.itemId';
         $where_clause = "WHERE items_categories.categoryId = {$categoryId}";
 
-        return $this->_getFiltered($join_clause, $where_clause);
+        return $this->getFiltered($join_clause, $where_clause);
     }
 }

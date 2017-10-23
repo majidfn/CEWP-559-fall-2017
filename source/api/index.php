@@ -43,59 +43,59 @@ if ($mysqli->connect_errno) {
     exit;
 }
 
-header("Content-Type: application/json");
 
 try {
     switch ($resource) {
         case 'items':
-            $model = new ItemModel($mysqli);
-            $controller = new ItemController($model);
-            
-            if ($method == 'POST' && !empty($id) && $subresource == 'image') {
-                $data = $controller->upload($id, $_FILES['new_item_image']);
-
-            } elseif ($method == 'POST') {
-                $data = $controller->create($requestJSON);
-
-            } elseif ($method == 'GET' && !empty($id)) {
-                $data = $controller->getOne($id);
-
-            } elseif ($method == 'GET' && $hasFilters) {
-                $data = $controller->getAllWithFilters($filters);
-                
-            } elseif ($method == 'GET') {
-                $data = $controller->getAll();
-
-            } elseif ($method == 'PUT' && !empty($id)) {
-                $data = $controller->update($id, $requestJSON);
-
-            } elseif ($method == 'DELETE' && !empty($id)) {
-                // $controller->delete($id);
-                // TODO: Remove this after implementing it
-                throw new Exception('Handler for DELETE method has NOT been implemented yet!', 501); // 501: Not Implemented!
-            }
-            
-            break;
-            
-            case 'categories':
-            $model = new CategoryModel($mysqli);
-            $controller = new CategoryController($model);
-            
-            if ($method == 'GET' && empty($id)) {
-                $data = $controller->getAll();
-            }
-            
-            break;
-            
-            default:
-            throw new Exception("$method is not implemented on: $baseURL ", 501); // 501: Not Implemented!
-            break;
-        }
-
-    } catch (Exception $e) {
+        $model = new ItemModel($mysqli);
+        $controller = new ItemController($model);
         
-        $data = array('error' => $e->getMessage());
-        http_response_code($e->getCode());
+        if ($method == 'POST' && !empty($id) && $subresource == 'image') {
+            $data = $controller->upload($id, $_FILES['new_item_image']);
+            
+        } elseif ($method == 'POST') {
+            $data = $controller->create($requestJSON);
+            
+        } elseif ($method == 'GET' && !empty($id)) {
+            $data = $controller->getOne($id);
+            
+        } elseif ($method == 'GET' && $hasFilters) {
+            $data = $controller->getAllWithFilters($filters);
+            
+        } elseif ($method == 'GET') {
+            $data = $controller->getAll();
+            
+        } elseif ($method == 'PUT' && !empty($id)) {
+            $data = $controller->update($id, $requestJSON);
+            
+        } elseif ($method == 'DELETE' && !empty($id)) {
+            // $controller->delete($id);
+            // TODO: Remove this after implementing it
+            throw new Exception('Handler for DELETE method has NOT been implemented yet!', 501); // 501: Not Implemented!
+        }
+        
+        break;
+        
+        case 'categories':
+        $model = new CategoryModel($mysqli);
+        $controller = new CategoryController($model);
+        
+        if ($method == 'GET' && empty($id)) {
+            $data = $controller->getAll();
+        }
+        
+        break;
+        
+        default:
+        throw new Exception("$method is not implemented on: $baseURL ", 501); // 501: Not Implemented!
+        break;
+    }
+    
+} catch (Exception $e) {
+    
+    $data = array('error' => $e->getMessage());
+    http_response_code($e->getCode());
 }
 
+header("Content-Type: application/json");
 echo json_encode($data, JSON_PRETTY_PRINT);
