@@ -48,47 +48,47 @@ try {
     switch ($resource) {
         case 'items':
             $model = new ItemModel($mysqli);
-            $view = new ItemView($model);
             $controller = new ItemController($model);
             
             if ($method == 'POST' && !empty($id) && $subresource == 'image') {
-                $controller->upload($id, $_FILES['new_item_image']);
+                $data = $controller->upload($id, $_FILES['new_item_image']);
 
             } elseif ($method == 'POST') {
-                $controller->create($requestJSON);
+                $data = $controller->create($requestJSON);
 
             } elseif ($method == 'GET' && !empty($id)) {
-                $controller->getOne($id);
+                $data = $controller->getOne($id);
 
             } elseif ($method == 'GET') {
-                $controller->getAll();
+                $data = $controller->getAll();
 
             } elseif ($method == 'PUT' && !empty($id)) {
-                $controller->update($id, $requestJSON);
+                $data = $controller->update($id, $requestJSON);
 
             } elseif ($method == 'DELETE' && !empty($id)) {
                 // $controller->delete($id);
                 // TODO: Remove this after implementing it
                 throw new Exception('Handler for DELETE method has NOT been implemented yet!', 501); // 501: Not Implemented!
             }
-        
-            echo $view->output();
+            
             break;
-    
-        case 'categories':
+            
+            case 'categories':
             $model = new CategoryModel($mysqli);
             $controller = new CategoryController($model);
-        
+            
             if ($method == 'GET' && empty($id)) {
                 $data = $controller->getAll();
             }
-    
-            echo json_encode($data, JSON_PRETTY_PRINT);
+            
             break;
+            
+            default:
+            throw new Exception("$method is not implemented on: $baseURL ", 501); // 501: Not Implemented!
+            break;
+        }
 
-        default:
-            break;
-    }
+        echo json_encode($data, JSON_PRETTY_PRINT);
 
 } catch (Exception $e) {
 

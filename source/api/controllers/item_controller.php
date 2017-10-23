@@ -11,12 +11,12 @@ class ItemController
 
     public function getAll()
     {
-        $this->model->getAll();
+        return $this->model->getAll();
     }
 
     public function getOne($id)
     {
-        $this->model->getOne($id);
+        return $this->model->getOne($id);
     }
 
     public function create($payload)
@@ -30,7 +30,7 @@ class ItemController
             throw new Exception('`price` should be provided!');
         }
 
-        $this->model->create($payload);
+        return $this->model->create($payload);
     }
 
     public function upload($id, $file)

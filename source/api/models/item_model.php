@@ -10,7 +10,6 @@ class ItemModel extends BaseModel
     protected $TableName = 'items';
     protected $ModelName = 'ItemModel';
 
-    public $_data;
     
     //
     // Save the payload as a new Item in to the Database
@@ -28,8 +27,7 @@ class ItemModel extends BaseModel
         $result = $this->db_connection->query($query);
         
         if (!$result) {
-            printf("Error: %s\n", $this->db_connection->error);
-            return;
+            throw new Exception("Database error: {$this->db_connection->error}", 500);
         }
 
         $insertedId = $this->db_connection->insert_id;
@@ -50,8 +48,7 @@ class ItemModel extends BaseModel
         $result = $this->db_connection->query($query);
         
         if (!$result) {
-            printf("Error: %s\n", $this->db_connection->error);
-            return;
+            throw new Exception("Database error: {$this->db_connection->error}", 500);
         }
 
         return $this->getOne($id);

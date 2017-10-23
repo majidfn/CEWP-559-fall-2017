@@ -7,8 +7,6 @@ class CategoryModel extends BaseModel
     public $description;
     public $price;
 
-    public $_data;
-
     protected $TableName = 'categories';
     protected $ModelName = 'CategoryModel';
 }
