@@ -1,6 +1,8 @@
 
 var baseURL = 'http://localhost/api';
 
+var userToken;
+
 function httpRequest(method, url, payload, callback) {
     var httpRequest = new XMLHttpRequest();
 
@@ -21,6 +23,7 @@ function httpRequest(method, url, payload, callback) {
 
     httpRequest.open(method, baseURL + url);
     httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.setRequestHeader('Authorization', 'Bearer ' + userToken);
 
     if (payload) {
         payload = JSON.stringify(payload)
@@ -128,7 +131,37 @@ function createItem(event){
             console.log('File uploaded successfully!');
             document.getElementById("items_btn").click();
         });
+    });
+}
 
+
+function showLogin(event) {
+    event.preventDefault();
+    
+    hideAllSections();
+
+    var htmlContainer = document.getElementById('login_container');
+    htmlContainer.style.display = "block";
+
+    document.getElementById("username").value = '';
+    document.getElementById("password").value = '';
+}
+
+function login(event) {
+    event.preventDefault();
+    
+    var username = document.getElementById("username").value;
+    var pass = document.getElementById("password").value;
+
+    var data = {
+        username: username,
+        password: pass
+    }
+
+    httpRequest('POST', '/login/', data, function (response) {
+        console.log('Successful log in: ', response);
+
+        userToken = response.token;
     });
 }
 
@@ -138,6 +171,7 @@ function hideAllSections() {
     document.getElementById("list_items_container").style.display = "none";
     document.getElementById("single_item_container").style.display = "none";
     document.getElementById("new_item_container").style.display = "none";
+    document.getElementById("login_container").style.display = "none";
 }
 
 
@@ -145,5 +179,6 @@ function loaded() {
     /// Button Listeners
     document.getElementById("items_btn").addEventListener('click', showItems, false);
     document.getElementById("new_item_btn").addEventListener('click', showNewItem, false);
+    document.getElementById("login_btn").addEventListener('click', showLogin, false);
     document.getElementById("items_btn").click();
 }
