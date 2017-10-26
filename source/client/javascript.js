@@ -2,6 +2,7 @@
 var baseURL = 'http://localhost/api';
 
 var userToken = getCookie('token');
+var isAdmin = getCookie('isAdmin');
 
 function httpRequest(method, url, payload, callback) {
     var httpRequest = new XMLHttpRequest();
@@ -162,7 +163,10 @@ function login(event) {
         console.log('Successful log in: ', response);
 
         userToken = response.token;
+        isAdmin = response.isAdmin;
+
         setCookie('token', userToken, 1);
+        setCookie('isAdmin', isAdmin, 1);
     });
 }
 
