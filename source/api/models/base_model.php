@@ -34,6 +34,9 @@ class BaseModel
     {
         $items = array();
         $query = "SELECT * FROM {$this->TableName} {$join_clause} {$where_clause}";
+
+        error_log("QUERY: $query");
+        
         $result = $this->db_connection->query($query);
 
         if (!$result) {
@@ -55,6 +58,8 @@ class BaseModel
         $items = array();
         $query = "SELECT * FROM {$this->TableName}";
         $result = $this->db_connection->query($query);
+
+        error_log("Generated Query is: $query");
         
         if (!$result) {
             throw new Exception("Database error: {$this->db_connection->error}", 500);
