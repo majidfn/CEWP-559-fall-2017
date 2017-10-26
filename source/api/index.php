@@ -17,6 +17,7 @@ require_once __DIR__.'/loader.php';
  * POST: is the `method`
  * 
  */
+error_log('Application is starting!');
 
 $baseURL = strtok($_SERVER["REQUEST_URI"],'?');
 
@@ -32,6 +33,7 @@ $requestJSON = json_decode($requestBody);
 $filters = $_GET;
 $hasFilters = !empty($_GET);
 
+
 //
 // Database Connection
 //
@@ -45,6 +47,11 @@ if ($mysqli->connect_errno) {
 
 
 try {
+    // Make sure if we have any JSON data as input, it's valid, otherwise throw an exception
+    if (!empty($requestBody) && json_last_error() != 0){
+        throw new Exception(json_last_error_msg(), 400);
+    }
+
     switch ($resource) {
         case 'items':
         $model = new ItemModel($mysqli);
@@ -92,7 +99,6 @@ try {
     }
     
 } catch (Exception $e) {
-    
     $data = array('error' => $e->getMessage());
     http_response_code($e->getCode());
 }
