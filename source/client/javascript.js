@@ -1,7 +1,7 @@
 
 var baseURL = 'http://localhost/api';
 
-var userToken;
+var userToken = getCookie('token');
 
 function httpRequest(method, url, payload, callback) {
     var httpRequest = new XMLHttpRequest();
@@ -162,6 +162,7 @@ function login(event) {
         console.log('Successful log in: ', response);
 
         userToken = response.token;
+        setCookie('token', userToken, 1);
     });
 }
 
@@ -180,5 +181,6 @@ function loaded() {
     document.getElementById("items_btn").addEventListener('click', showItems, false);
     document.getElementById("new_item_btn").addEventListener('click', showNewItem, false);
     document.getElementById("login_btn").addEventListener('click', showLogin, false);
-    document.getElementById("items_btn").click();
+    
+    document.getElementById("login_btn").click();
 }
