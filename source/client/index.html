@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>E-Commerce - PHP / MySQL II</title>
+	<script src="cookies.js"></script>
+	<script src="javascript.js"></script>
+	<link rel="stylesheet" href="./style.css" type="text/css" />
+</head>
+<body onload="loaded()">
+	<div id="page">
+		<div id="logo">
+			<h1><a href="/" id="logoLink">PHP / MYSQL II</a></h1>
+		</div>
+		<div id="nav">
+			<ul>
+				<li><a href="./">Home</a></li>
+				<li><a href="./items" id="items_btn">Items</a></li>
+				<li><a href="./items" id="new_item_btn">New Item</a></li>
+				<li><a href="./login" id="login_btn">Login</a></li>
+			</ul>	
+		</div>
+		<div id="content">
+			<div id="list_items_container"></div>
+			<div id="single_item_container">
+				<div id="single_item_name"></div>
+				<div id="single_item_desc"></div>
+				<div id="single_item_price"></div>
+			</div>
+			<div id="new_item_container">
+				<div class="block"><label>Title:</label><input type="text" id="new_item_title"/></div>
+				<div class="separator"></div>
+				<div class="block"><label>Desc:</label><textarea rows="5" cols="50" id="new_item_desc"></textarea></div>
+				<div class="separator"></div>
+				<div class="block"><label>Price:</label><input type="text" id="new_item_price"/></div>
+				<div class="separator"></div>
+				<div class="block"><label>Image:</label><input name="new_item_image" type="file" id="new_item_image"></div>
+				<div class="separator"></div>
+				<button class="create" onclick="createItem(event)">Create</button>
+			</div>
+			<div id="login_container">
+				<div class="block"><label>username:</label><input type="text" id="username"/></div>
+				<div class="separator"></div>
+				<div class="block"><label>password:</label><input type="password" id="password"/></div>
+				<button class="create" onclick="login(event)">Login</button>
+			</div>			
+		</div>
+		<div id="footer">
+		</div>
+	</div>
+</body>
+</html>

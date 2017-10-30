@@ -1,5 +1,7 @@
 # PHP / MySQL II #
 
+⚠️ You can read more about the Project [here](PROJECT.md).
+
 Here is the repository for the course `PHP PROGRAMMING WITH MYSQL II (CEWP 559)`. 
 
 ## Installation ##
@@ -17,7 +19,7 @@ After a successful installation of docker, use `bash` or `git bash` (on windows)
 
 ```
 docker-compose build
-docker-compose up -d
+docker-compose up
 ```
 
 After a successful initialization, in your browser you can anvigate to `http://localhost` and you should be able to see the `phpinfo` page. Also navigating to `http://localhost/test_db.php` should give you 2 record that are already in the database. 
@@ -36,6 +38,13 @@ docker exec -it 7faf3ec980be /bin/bash
 ```
 
 `7faf3ec980be` is the ID of the machine retrieved from `docker ps`. Replace it with your own Container ID.
+
+⚠️ In windows you probably need to do the following instead of the above:
+
+```
+winpty docker exec -it 7faf3ec980be bash
+```
+
 
 If you want to kill everything and start Fresh?
 ```

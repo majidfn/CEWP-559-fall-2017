@@ -33,3 +33,5 @@ RUN a2enmod rewrite
 RUN export PATH="$PATH:$HOME/.composer/vendor/bin"
 
 
+# To disable the Apache's Access logs, enable the following:
+# RUN ln -sfT /dev/null "/var/log/apache2/access.log"
