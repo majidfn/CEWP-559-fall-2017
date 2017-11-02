@@ -24,18 +24,38 @@ final class ItemControllerTest extends TestCase
     public function testCreateWithValidData(){
         
         // Setting Up the Mock Object for ItemModel
-        $mockModel = $this->getMockBuilder(ItemModel::class)
-        ->setMethods(['create'])
-        ->getMock();
+        $mockModel = $this->createMock(ItemModel::class);
         
         $mockModel->expects($this->once())
-        ->method('create');
+                  ->method('create');
         
         $payload = array('name' => 'something', 'price' => 12);
         
         $controller = new ItemController($mockModel);
         $controller->create($payload);
     }
+
+
+    public function testCreateWithValidDataReturnedValue(){
+        
+        $expectedDBResponse = new ItemModel(null);
+        $expectedDBResponse->name = 'something';
+        $expectedDBResponse->price = '12';
+
+        // Setting Up the Mock Object for ItemModel
+        $mockModel = $this->createMock(ItemModel::class);
+        
+        $mockModel->method('create')
+                  ->will($this->returnValue($expectedDBResponse));
+        
+        $payload = array('name' => 'something', 'price' => 12);
+        
+        $controller = new ItemController($mockModel);
+        $retrurnedValue = $controller->create($payload);
+
+        $this->assertEquals($retrurnedValue->name, $expectedDBResponse->name);
+        $this->assertEquals($retrurnedValue->price, $expectedDBResponse->price);
+    }    
 
 
 }
