@@ -25,9 +25,9 @@ class ItemController
         // We make sure the `title` and `price` are provided
 
         if (!array_key_exists('name', $payload)) {
-            throw new Exception('`name` should be provided!');
+            throw new Exception('`name` should be provided!', 400);
         } elseif (!array_key_exists('price', $payload)) {
-            throw new Exception('`price` should be provided!');
+            throw new Exception('`price` should be provided!', 400);
         }
 
         return $this->model->create($payload);
