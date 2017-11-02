@@ -9,17 +9,33 @@ To evaluate students based on the materials we have learnded during this class, 
 
 The final project should have the following sections:
 
-- Products Catalog / Single Product view
-- Categories
-- Reviews
-- Orders and History
-- Shopping Cart with ability to restore
-- User management and Authentication
-- Search
-- Administration
-    - New Item
-    - New Category
+- (05%) Categories view
+- (10%) Upon selection of a category, Products Catalog for that category
+- (05%) Single Product view
+- (05%) Add to Shopping Cart (Logged in User only)
+- (05%) View Shopping Cart (Logged in User only)
+- (10%) Orders - Stored in DB in `Orders` and `OrderItems` tables (Logged in User only)
+- (10%) Payment gateway integration (Logged in User only)
+- (15%) User Authentication
+- (10%) Search items - Full Text
+- (15%) Administration (Only Admin can access it)
+    - (06%) Items Management:
+        - (02%) Create New item + image
+        - (02%) Update an existing item
+        - (02%) Delete an exiting item
+    - (06%) Categories Management:
+        - (02%) Create New category + image
+        - (02%) Update an existing category
+        - (02%) Delete an exiting category
+    - (03%) Create new user 
+- (10%) Unit-Tests, 10% code coverage for all Controllers and Models
 - Front-End: Is described below
+- Bonuses:
+- (05%) Orders History (optional) (Logged in User only)
+- (05%) Read Reviews for an item (_Optional = Bonus_)
+- (05%) Add Reviews for an item (_Optional = Bonus_)
+- (20%) Unit-Tests, above 50% code coverage for all Controllers and Models (_Optional = Bonus_)
+- (30%) Unit-Tests, above 70% code coverage for all Controllers and Models (_Optional = Bonus_)
 
 ## Front-End ##
 
