@@ -1,6 +1,7 @@
 <?php
 
-require_once __DIR__.'/loader.php';
+require_once __DIR__ . '/loader.php';
+
 
 error_log('API is starting!');
 
@@ -61,7 +62,7 @@ try {
     switch ($resource) {
         case 'items':
 
-        $userController->verify($requestHeaders);
+        // $userController->verify($requestHeaders);
 
 
         $model = new ItemModel($mysqli);
@@ -71,6 +72,7 @@ try {
             $data = $controller->upload($id, $_FILES['new_item_image']);
             
         } elseif ($method == 'POST') {
+            $userController->isAdmin($requestHeaders);
             $data = $controller->create($requestJSON);
             
         } elseif ($method == 'GET' && !empty($id)) {
