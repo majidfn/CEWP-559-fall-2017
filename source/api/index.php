@@ -100,7 +100,9 @@ try {
     
 } catch (Exception $e) {
     $data = array('error' => $e->getMessage());
-    http_response_code($e->getCode());
+    $code = $e->getCode();
+    $code = !empty($code) ? $code : 400;
+    http_response_code($code);
 }
 
 header("Content-Type: application/json");
