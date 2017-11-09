@@ -49,7 +49,7 @@ function fileUpload(url, file, callback) {
     formData.append('new_item_image',file);
     httpRequest.send(formData);
   }
-
+  
 function showItems(event) {
     event.preventDefault();
     
@@ -170,6 +170,29 @@ function login(event) {
     });
 }
 
+function showCategories(event) {
+    event.preventDefault();
+    
+    hideAllSections();
+    showSection('list_categories_container');
+
+    httpRequest('GET', '/categories', undefined, function (data) {
+        for (var i = 0; i < data.length; i++) {
+            var item = data[i];
+            htmlContainer.innerHTML += 
+                `<div class="item_box">
+                    
+                    <div class="center"><img src="${baseURL}/../images/${item['image']}" width=150 height=150 /></div>
+                    <div class="title"><a href="#" onclick="showItem(event, ${item['id']})">${item["name"]}</a></div>
+                    <div class="description">${item["description"]}</div>
+                    <div class="price">$${item["price"]}</div>
+                
+                </div>`;
+        }
+    });
+
+}
+
 
 
 function hideAllSections() {
@@ -177,6 +200,12 @@ function hideAllSections() {
     document.getElementById("single_item_container").style.display = "none";
     document.getElementById("new_item_container").style.display = "none";
     document.getElementById("login_container").style.display = "none";
+}
+
+function showSection(sectionId) {
+    var htmlContainer = document.getElementById(sectionId);
+    htmlContainer.innerHTML = '';
+    htmlContainer.style.display = "inline-block";
 }
 
 
