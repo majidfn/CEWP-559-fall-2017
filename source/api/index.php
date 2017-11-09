@@ -119,6 +119,10 @@ try {
         }
         break;        
 
+        case 'cart':
+        $user = $userController->getUserByToken(requestHeaders);
+        break;
+
         
         default:
         throw new Exception("$method is not implemented on: $baseURL ", 501); // 501: Not Implemented!

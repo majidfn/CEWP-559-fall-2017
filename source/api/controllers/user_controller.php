@@ -74,4 +74,9 @@ class UserController
             throw new Exception("Admin Only!", 403);
         }
     }
+
+    public function getUserByToken($headers) {
+        $this->verify($headers);
+        return $this->model->getUserByToken($token);
+    }
 }
