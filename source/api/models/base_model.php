@@ -115,6 +115,8 @@ class BaseModel
         $setStatement = implode(', ', $fields);
         $query = "INSERT INTO {$this->TableName} SET $setStatement";
 
+        error_log("Insert SQL: $query");
+
         $result = $this->db_connection->query($query);
         
         if (!$result) {
