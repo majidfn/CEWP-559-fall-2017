@@ -41,3 +41,21 @@ RUN export PATH="$PATH:$HOME/.composer/vendor/bin"
 RUN wget https://phar.phpunit.de/phpunit-6.4.phar
 RUN chmod +x phpunit-6.4.phar
 RUN mv phpunit-6.4.phar /usr/local/bin/phpunit
+
+
+# PHP.ini configuration
+ADD ./build/php/ /usr/local/etc/php
+
+# Apache configuration
+ADD ./build/apache2/apache2.conf /etc/apache2/conf-enabled/apache2.conf
+ADD ./build/apache2/hosts.conf /etc/apache2/sites-enabled/hosts.conf
+
+# Adding Source Files
+ADD ./source /var/www/html
+
+# Installing dependencies using composer
+RUN cd /var/www/html/api && composer install
+
+# Running the Unit-Tests
+
+EXPOSE 80
