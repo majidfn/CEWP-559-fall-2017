@@ -46,12 +46,13 @@ RUN mv phpunit-6.4.phar /usr/local/bin/phpunit
 # PHP.ini configuration
 ADD ./build/php/ /usr/local/etc/php
 
-# Apache configuration
-ADD ./build/apache2/apache2.conf /etc/apache2/conf-enabled/apache2.conf
-ADD ./build/apache2/hosts.conf /etc/apache2/sites-enabled/hosts.conf
-
 # Adding Source Files
 ADD ./source /var/www/html
+
+# Apache configuration
+COPY ./build/apache2/apache2.conf /etc/apache2/conf-enabled/apache2.conf
+COPY ./build/apache2/hosts.conf /etc/apache2/sites-enabled/hosts.conf
+
 
 # Installing dependencies using composer
 RUN cd /var/www/html/api && composer install
