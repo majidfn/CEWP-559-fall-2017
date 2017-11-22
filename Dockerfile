@@ -50,8 +50,8 @@ ADD ./build/php/ /usr/local/etc/php
 ADD ./source /var/www/html
 
 # Apache configuration
-# COPY ./build/apache2/apache2.conf /etc/apache2/conf-enabled/apache2.conf
-# COPY ./build/apache2/hosts.conf /etc/apache2/sites-enabled/hosts.conf
+ADD ./build/apache2/apache2.conf /etc/apache2/conf-enabled/
+ADD ./build/apache2/hosts.conf /etc/apache2/sites-enabled/
 
 
 # Installing dependencies using composer
