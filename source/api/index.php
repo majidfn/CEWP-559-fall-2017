@@ -46,6 +46,8 @@ $dbname = $_ENV['RDS_DB_NAME'];
 $username = $_ENV['RDS_USERNAME'];
 $password = $_ENV['RDS_PASSWORD'];
 
+var_dump($_ENV);
+
 $mysqli = new mysqli($dbhost, $username, $password, $dbname, $dbport);
 if ($mysqli->connect_errno) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
