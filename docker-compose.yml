@@ -11,6 +11,12 @@ php7:
     - "8080:8080"
   links:
     - mysql
+  environment:
+    - RDS_HOSTNAME=mysql
+    - RDS_PORT=3306
+    - RDS_DB_NAME=CCE_PHPMySQL2
+    - RDS_USERNAME=root
+    - RDS_PASSWORD=root
 
 
 mysql:

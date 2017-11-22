@@ -40,7 +40,13 @@ $hasFilters = !empty($_GET);
 //
 // Database Connection
 //
-$mysqli = new mysqli('mysql', 'root', 'root', 'CCE_PHPMySQL2', '3306');
+$dbhost = $_ENV['RDS_HOSTNAME'];
+$dbport = $_ENV['RDS_PORT'];
+$dbname = $_ENV['RDS_DB_NAME'];
+$username = $_ENV['RDS_USERNAME'];
+$password = $_ENV['RDS_PASSWORD'];
+
+$mysqli = new mysqli($dbhost, $username, $password, $dbname, $dbport);
 if ($mysqli->connect_errno) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;
     echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
