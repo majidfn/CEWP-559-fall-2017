@@ -10,3 +10,6 @@ spl_autoload_register(function ($class_name) {
 
     include __dir__."/{$paths[1]}s/{$paths[0]}_{$paths[1]}.php";
 });
+
+
+require_once('vendor/autoload.php');

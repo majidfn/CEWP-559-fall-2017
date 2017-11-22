@@ -1,6 +1,9 @@
 <?php
 
-require_once __DIR__.'/loader.php';
+require_once __DIR__ . '/loader.php';
+
+
+error_log('API is starting!');
 
 /**
  * Path Parts:
@@ -17,7 +20,6 @@ require_once __DIR__.'/loader.php';
  * POST: is the `method`
  * 
  */
-error_log('Application is starting!');
 
 $baseURL = strtok($_SERVER["REQUEST_URI"],'?');
 
@@ -29,6 +31,7 @@ $subresource = strtok('/');
 $method = $_SERVER['REQUEST_METHOD'];
 $requestBody = file_get_contents('php://input');
 $requestJSON = json_decode($requestBody);
+$requestHeaders = getallheaders();
 
 $filters = $_GET;
 $hasFilters = !empty($_GET);
@@ -46,6 +49,10 @@ if ($mysqli->connect_errno) {
 }
 
 
+$userModel = new UserModel($mysqli);
+$userController = new UserController($userModel);
+
+
 try {
     // Make sure if we have any JSON data as input, it's valid, otherwise throw an exception
     if (!empty($requestBody) && json_last_error() != 0){
@@ -54,6 +61,10 @@ try {
 
     switch ($resource) {
         case 'items':
+
+        // $userController->verify($requestHeaders);
+
+
         $model = new ItemModel($mysqli);
         $controller = new ItemController($model);
         
@@ -61,6 +72,7 @@ try {
             $data = $controller->upload($id, $_FILES['new_item_image']);
             
         } elseif ($method == 'POST') {
+            $userController->isAdmin($requestHeaders);
             $data = $controller->create($requestJSON);
             
         } elseif ($method == 'GET' && !empty($id)) {
@@ -92,6 +104,25 @@ try {
         }
         
         break;
+
+
+        case 'users':
+        if ($method == 'POST') {
+            $data = $userController->create($requestJSON);   
+        }
+        break;
+
+
+        case 'login':
+        if ($method == 'POST') {
+            $data = $userController->login($requestJSON);   
+        }
+        break;        
+
+        case 'cart':
+        $user = $userController->getUserByToken(requestHeaders);
+        break;
+
         
         default:
         throw new Exception("$method is not implemented on: $baseURL ", 501); // 501: Not Implemented!
@@ -100,7 +131,9 @@ try {
     
 } catch (Exception $e) {
     $data = array('error' => $e->getMessage());
-    http_response_code($e->getCode());
+    $code = $e->getCode();
+    $code = !empty($code) ? $code : 400;
+    http_response_code($code);
 }
 
 header("Content-Type: application/json");
