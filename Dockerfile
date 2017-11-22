@@ -49,11 +49,6 @@ ADD ./build/php/ /usr/local/etc/php
 # Adding Source Files
 ADD ./source /var/www/html
 
-# Apache configuration
-ADD ./build/apache2/apache2.conf /etc/apache2/conf-enabled/
-ADD ./build/apache2/hosts.conf /etc/apache2/sites-enabled/
-
-
 # Installing dependencies using composer
 RUN cd /var/www/html/api && composer install
 
