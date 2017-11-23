@@ -117,7 +117,15 @@ try {
         if ($method == 'POST') {
             $data = $userController->login($requestJSON);   
         }
-        break;        
+        break;    
+
+        case 'payment':
+        if ($method == 'POST') {
+            $payment = new PaymentController();
+            $payment->collect($requestJSON);
+        }
+
+        break;
 
         case 'cart':
         $user = $userController->getUserByToken(requestHeaders);
