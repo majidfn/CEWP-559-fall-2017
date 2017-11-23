@@ -1,5 +1,5 @@
 
-var baseURL = 'http://localhost/api';
+var baseURL = window.location.protocol + '//' + window.location.hostname + '/api';
 
 var userToken = getCookie('token');
 var isAdmin = getCookie('isAdmin');
