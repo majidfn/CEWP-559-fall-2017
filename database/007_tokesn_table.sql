@@ -1,4 +1,4 @@
-CREATE TABLE `CCE_PHPMySQL2`.`tokens` (
+CREATE TABLE `tokens` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `token` VARCHAR(255) NULL,
   `userId` INT NULL,
