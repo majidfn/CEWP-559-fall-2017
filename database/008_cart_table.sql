@@ -1,0 +1,6 @@
+CREATE TABLE `cart` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `itemId` VARCHAR(255) NULL,
+  `userId` INT NULL,
+  `creationDateTime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
