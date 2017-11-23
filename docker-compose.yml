@@ -1,16 +1,22 @@
 php7:
   build: .
-  dockerfile: ./build/docker/docker/dockerfile_php_7
+  dockerfile: ./Dockerfile
   volumes:
     - ./source:/var/www/html
-    - ./build/docker/php:/usr/local/etc/php
-    - ./build/docker/apache2/apache2.conf:/etc/apache2/conf-enabled/apache2.conf
-    - ./build/docker/apache2/hosts.conf:/etc/apache2/sites-enabled/hosts.conf
+    - ./build/php:/usr/local/etc/php
+    - ./build/apache2/apache2.conf:/etc/apache2/conf-enabled/apache2.conf
+    - ./build/apache2/hosts.conf:/etc/apache2/sites-enabled/hosts.conf
   ports:
     - "80:80"
     - "8080:8080"
   links:
     - mysql
+  environment:
+    - RDS_HOSTNAME=mysql
+    - RDS_PORT=3306
+    - RDS_DB_NAME=CCE_PHPMySQL2
+    - RDS_USERNAME=root
+    - RDS_PASSWORD=root
 
 
 mysql:

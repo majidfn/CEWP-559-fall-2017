@@ -1,51 +1,79 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
+
 <head>
-	<title>E-Commerce - PHP / MySQL II</title>
-	<script src="cookies.js"></script>
-	<script src="javascript.js"></script>
+	<title>E-Commerce Project</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="./style.css" type="text/css" />
+	<!-- Stripe -->
+	<script src="https://checkout.stripe.com/checkout.js"></script>
 </head>
-<body onload="loaded()">
-	<div id="page">
-		<div id="logo">
-			<h1><a href="/" id="logoLink">PHP / MYSQL II</a></h1>
+
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a class="navbar-brand" href="#">E-Commerce</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
+		 aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" href="#" onclick="showCategories()">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="#" onclick="showLogin()">Login</a></li>
+				<li class="nav-item"><a class="nav-link" href="#"onclick="showCart()">Cart</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Admin</a></li>
+			</ul>
+			<span class="navbar-text pr-5" id="welcome_msg"></span>
+			<form class="form-inline my-2 my-lg-0">
+				<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</form>
 		</div>
-		<div id="nav">
-			<ul>
-				<li><a href="./">Home</a></li>
-				<li><a href="./items" id="items_btn">Items</a></li>
-				<li><a href="./items" id="new_item_btn">New Item</a></li>
-				<li><a href="./login" id="login_btn">Login</a></li>
-			</ul>	
-		</div>
-		<div id="content">
-			<div id="list_items_container"></div>
-			<div id="single_item_container">
-				<div id="single_item_name"></div>
-				<div id="single_item_desc"></div>
-				<div id="single_item_price"></div>
-			</div>
-			<div id="new_item_container">
-				<div class="block"><label>Title:</label><input type="text" id="new_item_title"/></div>
-				<div class="separator"></div>
-				<div class="block"><label>Desc:</label><textarea rows="5" cols="50" id="new_item_desc"></textarea></div>
-				<div class="separator"></div>
-				<div class="block"><label>Price:</label><input type="text" id="new_item_price"/></div>
-				<div class="separator"></div>
-				<div class="block"><label>Image:</label><input name="new_item_image" type="file" id="new_item_image"></div>
-				<div class="separator"></div>
-				<button class="create" onclick="createItem(event)">Create</button>
-			</div>
-			<div id="login_container">
-				<div class="block"><label>username:</label><input type="text" id="username"/></div>
-				<div class="separator"></div>
-				<div class="block"><label>password:</label><input type="password" id="password"/></div>
-				<button class="create" onclick="login(event)">Login</button>
-			</div>			
-		</div>
-		<div id="footer">
-		</div>
+	</nav>
+	<div class="jumbotron">
+		<div class="container"></div>
 	</div>
+
+	<div id="list_categories_container" class="container span12"></div>
+	<div id="list_items_container" class="container span12"></div>
+	<div id="single_item_container" class="container span12"></div>
+
+	<div id="new_item_container">
+		<div class="block"><label>Title:</label><input type="text" id="new_item_title"/></div>
+		<div class="separator"></div>
+		<div class="block"><label>Desc:</label><textarea rows="5" cols="50" id="new_item_desc"></textarea></div>
+		<div class="separator"></div>
+		<div class="block"><label>Price:</label><input type="text" id="new_item_price"/></div>
+		<div class="separator"></div>
+		<div class="block"><label>Image:</label><input name="new_item_image" type="file" id="new_item_image"></div>
+		<div class="separator"></div>
+		<button class="create" onclick="createItem(event)">Create</button>
+	</div>
+	<div id="login_container" class="container span12">
+		<div class="form-group">
+			<label for="usr">Name:</label>
+			<input type="text" class="form-control" id="username">
+		</div>
+		<div class="form-group">
+			<label for="pwd">Password:</label>
+			<input type="password" class="form-control" id="password">
+		</div>
+		<button type="button" onclick="login(event)" class="btn btn-success btn-block">Login</button>
+	</div>
+	
+	<div id="cart_container" class="container span12"></div>		
+
+	<!-- E-Commerce project JS files -->
+	<script src="javascript.js"></script>
+	<script src="stripe.js"></script>
 </body>
+
 </html>
