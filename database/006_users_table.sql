@@ -12,3 +12,4 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`username`, `password`, `email`, `isAdmin`) VALUES ('majid', '$2y$10$fwYjdH70myASfdhDGnZYL.UBfzi7IDA4bnyrcyfe0tD7gTTOsT7P.', 'majidfn@gmail.com', 1);
 INSERT INTO `users` (`username`, `password`, `email`, `isAdmin`) VALUES ('admin', '$2y$10$fwYjdH70myASfdhDGnZYL.UBfzi7IDA4bnyrcyfe0tD7gTTOsT7P.', 'majidfn@yahoo.com', 1);
+INSERT INTO `users` (`username`, `password`, `email`, `isAdmin`) VALUES ('user', '$2y$10$fwYjdH70myASfdhDGnZYL.UBfzi7IDA4bnyrcyfe0tD7gTTOsT7P.', 'majidfn@yahoo.com', 0);
