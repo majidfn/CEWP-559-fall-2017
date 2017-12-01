@@ -66,6 +66,7 @@ class UserController
     public function isAdmin($headers) {
         $this->verify($headers);
 
+        // Authorization: Bearer asdasd83024812083102830llasdas
         $token = explode(' ', $headers['Authorization'])[1];
 
         $user = $this->model->getUserByToken($token);
@@ -77,6 +78,9 @@ class UserController
 
     public function getUserByToken($headers) {
         $this->verify($headers);
+
+        $token = explode(' ', $headers['Authorization'])[1];
+
         return $this->model->getUserByToken($token);
     }
 }

@@ -85,4 +85,8 @@ class ItemController
 
         return $this->model->getFilteredItems($categoryId);
     }
+
+    public function delete($id) {
+        return $this->model->delete($id);
+    }
 }

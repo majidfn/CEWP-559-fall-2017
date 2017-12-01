@@ -94,9 +94,9 @@ try {
             $data = $controller->update($id, $requestJSON);
             
         } elseif ($method == 'DELETE' && !empty($id)) {
-            // $controller->delete($id);
+            $controller->delete($id);
             // TODO: Remove this after implementing it
-            throw new Exception('Handler for DELETE method has NOT been implemented yet!', 501); // 501: Not Implemented!
+            // throw new Exception('Handler for DELETE method has NOT been implemented yet!', 501); // 501: Not Implemented!
         }
         
         break;
@@ -126,7 +126,16 @@ try {
         break;        
 
         case 'cart':
-        $user = $userController->getUserByToken(requestHeaders);
+        $user = $userController->getUserByToken($requestHeaders);
+        
+        $model = new CartModel($mysqli);
+        $controller = new CartController($model);
+
+        if ($method == 'POST') {
+            $controller->addItem($user->id, $requestJSON);
+        }elseif ($method == 'GET') {
+            $data = $controller->getCart($user->id);
+        }
         break;
 
         
@@ -143,4 +152,7 @@ try {
 }
 
 header("Content-Type: application/json");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
+
 echo json_encode($data, JSON_PRETTY_PRINT);
