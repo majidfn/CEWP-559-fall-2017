@@ -28,4 +28,8 @@ class CartController
     	return array('items' => $items, 'total' => $total);
     }
 
+    public function emptyCart($userId) {
+        $this->model->emptyCart($userId);
+    }
+
 }
