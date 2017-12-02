@@ -138,6 +138,27 @@ try {
         }
         break;
 
+        case 'payment':
+        $user = $userController->getUserByToken($requestHeaders);
+
+        $cart_model = new CartModel($mysqli);
+        $cart_controller = new CartController($cart_model);
+
+        $order_model = new OrderModel($mysqli);
+        $order_controller = new OrderController($order_model);
+
+        if ($method == 'POST') {
+            // TODO: The rest of the Payment code should go here!
+            
+            $cart = $cart_controller->getCart($user->id);
+            $order = $order_controller->newOrder($user->id, $cart);
+            $order_controller->createOrderItems($order->id, $cart);
+            // empty the cart for the user
+            $cart_controller->emptyCart($user->id);
+        }
+
+        break;
+
         
         default:
         throw new Exception("$method is not implemented on: $baseURL ", 501); // 501: Not Implemented!

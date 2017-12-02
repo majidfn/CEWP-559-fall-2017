@@ -1,0 +1,14 @@
+CREATE TABLE `order_items` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `itemId` VARCHAR(255) NULL,
+  `orderId` INT NULL,
+  `creationDateTime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `orders` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `userId` VARCHAR(255) NULL,
+  `total` FLOAT NULL,
+  `creationDateTime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`));
+
